@@ -58,7 +58,7 @@ peso = [w11,w21,w31,wb]
 txAprendizaje = .1
 
 #Cantidad de épocas
-epochs = 1000
+epochs = 10000
 
 
 #--------------------------------------
@@ -191,7 +191,7 @@ print("--------------------------")
 print ("PREDICCIÓN ")
 print("--------------------------")
 x1 = 1
-x2 = 1
+x2 = 0
 
 #Etapa 1: Cálculo de la suma ponderada
 valor_suma_ponderada = suma_ponderada(x1,w11,x2,w21,sesgo,wb)
