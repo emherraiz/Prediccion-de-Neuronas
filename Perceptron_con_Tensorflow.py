@@ -78,7 +78,7 @@ optimizador = tf.train.GradientDescentOptimizer(learning_rate=0.1).minimize(func
 #-------------------------------------
 
 #Cantidad de epochs
-epochs = 10000
+epochs = 100
 
 #Inicialización de la variable
 init = tf.global_variables_initializer()
@@ -113,9 +113,9 @@ plt.show()
 
 print("--- VERIFICACIONES ----")
 
-for i in range(0,4):
+for i in range(4):
     print("Observación:"+str(valores_entradas_X[i])+ " - Esperado: "+str(valores_a_predecir_Y[i])+" - Predicción: "+str(sesion.run(prediccion, feed_dict={tf_neuronas_entradas_X: [valores_entradas_X[i]]})))
 
 
-
+print(tf.zeros([1, 1]))
 sesion.close()
