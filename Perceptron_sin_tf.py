@@ -194,3 +194,14 @@ perci.aprendizaje(observaciones_entradas, predicciones, epochs =10000)
 
 perci.visualizacion()
 perci.predicciones(1,1)
+
+observaciones_entradas = array([
+                                [1, 0],
+                                [1, 1],
+                                [0, 1],
+                                [0, 0]
+                                ])
+
+
+predicciones = array([[0],[1], [0],[0]])
+
