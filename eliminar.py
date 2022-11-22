@@ -30,7 +30,15 @@ tf.disable_v2_behavior()
 
 
 class Perceptron_con_Tensor_Flow():
-    def __init__(self):
+    def __init__(self, valores_entradas_X, valores_a_predecir_Y):
+        #-------------------------------------
+        #    PARAMETROS GENERALES
+        #-------------------------------------
+
+        self.valores_entradas_X = valores_entradas_X
+        self.valores_a_predecir_Y = valores_a_predecir_Y
+
+
         #Variable TensorFLow correspondiente a los valores de neuronas de entrada
         self.tf_neuronas_entradas_X = tf.placeholder(tf.float32, [None, 2])
 
@@ -41,7 +49,7 @@ class Perceptron_con_Tensor_Flow():
     #       FUNCIONES ÚTILES
     #--------------------------------------
 
-    def suma_ponderada(self, neuronas_entrada_X, peso, sesgo):
+    def activacion(self, neuronas_entrada_X, peso, sesgo):
 
 
         '''La suma ponderada es en la práctica una multiplicación de matrices
@@ -74,7 +82,7 @@ class Perceptron_con_Tensor_Flow():
         funcion_error = tf.reduce_sum(tf.pow(valores_reales_Y-prediccion,2))
         return funcion_error
 
-    def optimizador(self, funcion_error, txAprendizaje = .1):
+    def optimizar(self, funcion_error, txAprendizaje = .1):
         '''Descenso de gradiente
 
         Args:
@@ -94,6 +102,11 @@ class Perceptron_con_Tensor_Flow():
     #-------------------------------------
 
     def aprendizaje(self, epochs):
+        '''Realizamos el aprendizaje mediante tf.Session()
+
+        Args:
+            epochs (int): Numero de épocas
+        '''
 
         #-- Peso --
         #Creación de una variable TensorFlow de tipo tabla
@@ -103,5 +116,67 @@ class Perceptron_con_Tensor_Flow():
 
         #-- Sesgo inicializado a 0 --
         sesgo = tf.Variable(tf.zeros([1, 1]), tf.float32)
+
+        # Función de activación de tipo sigmoide que permite calcular la predicción
+        self.prediccion = self.activacion(self.tf_neuronas_entradas_X, peso, sesgo)
+
+        # Función de error de media cuadrática MSE
+        funcion_error = self.error_MSE(self.prediccion, self.tf_valores_reales_Y)
+
+        # Descenso de gradiente con una tasa de aprendizaje fijada a 0,1
+        optimizador = self.optimizar(funcion_error)
+
+        #Inicialización de la variable
+        init = tf.global_variables_initializer()
+
+        #Inicio de una sesión de aprendizaje
+        self.sesion = tf.Session()
+        self.sesion.run(init)
+
+        #Para la realización de la gráfica para la MSE
+        self.Grafica_MSE=[]
+
+
+        #Para cada epoch
+        for i in range(epochs):
+
+            #Realización del aprendizaje con actualzación de los pesos
+            self.sesion.run(optimizador, feed_dict = {self.tf_neuronas_entradas_X: self.valores_entradas_X, self.tf_valores_reales_Y: self.valores_a_predecir_Y})
+
+            #Calcular el error
+            MSE = self.sesion.run(funcion_error, feed_dict = {self.tf_neuronas_entradas_X: self.valores_entradas_X, self.tf_valores_reales_Y: self.valores_a_predecir_Y})
+
+            #Visualización de la información
+            self.Grafica_MSE.append(MSE)
+            print("EPOCH (" + str(i) + "/" + str(epochs) + ") -  MSE: "+ str(MSE))
+
+
+    def visualizacion(self):
+        '''Visualización de la gráfica de MSE
+        '''
+        plt.plot(self.Grafica_MSE)
+        plt.ylabel('MSE')
+        plt.show()
+
+    def verificaciones(self):
+        '''Realización de verificaciones
+        '''
+        print("--- VERIFICACIONES ----")
+        for i in range(4):
+            print("Observación:"+str(self.valores_entradas_X[i])+ " - Esperado: "+str(self.valores_a_predecir_Y[i])+" - Predicción: "+str(self.sesion.run(self.prediccion, feed_dict={self.tf_neuronas_entradas_X: [self.valores_entradas_X[i]]})))
+
+        self.sesion.close()
+
+
+cua = Perceptron_con_Tensor_Flow([[1., 0.], [1., 1.], [0., 1.], [0., 0.]], [[0.], [1.], [0.], [0.]])
+cua.aprendizaje(1000)
+cua.visualizacion()
+cua.verificaciones()
+
+
+
+
+
+
 
 

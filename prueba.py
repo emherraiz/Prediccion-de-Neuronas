@@ -129,18 +129,18 @@ class Perceptron():
             self.Grafica_MSE.append(MSE[0])
             print("MSE: "+str(MSE))
 
-            print()
-            print()
-            print ("¡Aprendizaje terminado!")
-            print ("Pesos iniciales: " )
-            print ("W11 = "+str(self.pesos_iniciales[0]))
-            print ("W21 = "+str(self.pesos_iniciales[1]))
-            print ("Wb = "+str(self.pesos_iniciales[2]))
+        print()
+        print()
+        print ("¡Aprendizaje terminado!")
+        print ("Pesos iniciales: " )
+        print ("W11 = "+str(self.pesos_iniciales[0]))
+        print ("W21 = "+str(self.pesos_iniciales[1]))
+        print ("Wb = "+str(self.pesos_iniciales[2]))
 
-            print ("Pesos finales: " )
-            print ("W11 = "+str(self.w11))
-            print ("W21 = "+str(self.w21))
-            print ("Wb = "+str(self.wb))
+        print ("Pesos finales: " )
+        print ("W11 = "+str(self.w11))
+        print ("W21 = "+str(self.w21))
+        print ("Wb = "+str(self.wb))
 
 
 
