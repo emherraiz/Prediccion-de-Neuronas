@@ -159,7 +159,7 @@ class Perceptron():
     def predicciones(self, x1, x2, sesgo = 1):
 
         #Etapa 1: Cálculo de la suma ponderada
-        valor_suma_ponderada = self.suma_ponderada(x1,self.w11,x2,self.w21,sesgo,self.wb)
+        valor_suma_ponderada = self.suma_ponderada(x1, self.w11, x2, self.w21, sesgo, self.wb)
 
 
         #Etapa 2: Aplicación de la función de activación
@@ -170,38 +170,6 @@ class Perceptron():
 
         print()
         print("--------------------------")
-        print ("PREDICCIÓN ")
-        print("--------------------------")
-
         print("Predicción del [" + str(x1) + "," + str(x2)  + "]")
         print("Predicción = " + str(valor_predicho))
-
-
-
-observaciones_entradas = array([
-                                [1, 0],
-                                [1, 1],
-                                [0, 1],
-                                [0, 0]
-                                ])
-
-
-predicciones = array([[0],[1], [0],[0]])
-
-perci = Perceptron()
-
-perci.aprendizaje(observaciones_entradas, predicciones, epochs =10000)
-
-perci.visualizacion()
-perci.predicciones(1,1)
-
-observaciones_entradas = array([
-                                [1, 0],
-                                [1, 1],
-                                [0, 1],
-                                [0, 0]
-                                ])
-
-
-predicciones = array([[0],[1], [0],[0]])
-
+        print("--------------------------")

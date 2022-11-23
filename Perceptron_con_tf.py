@@ -161,20 +161,11 @@ class Perceptron_con_Tensor_Flow():
     def verificaciones(self):
         '''Realización de verificaciones
         '''
-        print("--- VERIFICACIONES ----")
+        print("\n\n--- VERIFICACIONES ----")
         for i in range(4):
             print("Observación:"+str(self.valores_entradas_X[i])+ " - Esperado: "+str(self.valores_a_predecir_Y[i])+" - Predicción: "+str(self.sesion.run(self.prediccion, feed_dict={self.tf_neuronas_entradas_X: [self.valores_entradas_X[i]]})))
 
         self.sesion.close()
-
-
-cua = Perceptron_con_Tensor_Flow([[1., 0.], [1., 1.], [0., 1.], [0., 0.]], [[0.], [1.], [0.], [0.]])
-cua.aprendizaje(1000)
-cua.visualizacion()
-cua.verificaciones()
-
-
-
 
 
 
